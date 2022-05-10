@@ -315,9 +315,8 @@ window.addEventListener("keydown", (event) => {
         const textAr = document.getElementsByClassName(`input_text`)[0];
         if (textPosition != textAr.value.length) {
             const textFirst = textAr.value.slice(0, textPosition);
-            const textLast = textAr.value.substring(textPosition + 1, textAr.value.length)
-            textAr.value = `${textFirst}${textLast}`
-            // textPosition = 1;
+            const textLast = textAr.value.substring(textPosition + 1, textAr.value.length);
+            textAr.value = `${textFirst}${textLast}`;
             textAr.selectionStart = textPosition;
             textAr.selectionEnd = textPosition;
         }
@@ -357,14 +356,12 @@ window.addEventListener("keydown", (event) => {
         const textFirst = textAr.value.slice(0, textPosition);
         const textLast = textAr.value.substring(textPosition, textAr.value.length)
 
-        // console.log(langShift)
         let langShiftKey = '';
         if (langShift[0] == 'ru') langShiftKey = ruLang[arrayKeyClick.indexOf(event.code)];
         if (langShift[0] == 'ru' && langShift[3] == 'Shift') langShiftKey = ruLangShift[arrayKeyClick.indexOf(event.code)];
         if (langShift[0] == 'eu') langShiftKey = euLang[arrayKeyClick.indexOf(event.code)];
         if (langShift[0] == 'eu' && langShift[3] == 'Shift') langShiftKey = euLangShift[arrayKeyClick.indexOf(event.code)];
 
-        // textAr.value = `${textFirst}${event.key}${textLast}`
         textAr.value = `${textFirst}${langShiftKey}${textLast}`
         textAr.selectionStart = textPosition + 1;
         textAr.selectionEnd = textPosition + 1;
@@ -382,7 +379,7 @@ window.addEventListener("keydown", (event) => {
 })
 
 window.addEventListener("click", (event) => {
-    // console.log(event)
+
     if (event.target.classList[0] == "button_key") {
 
         if (["ArrowUp", "ArrowLeft", "ArrowDown", "ArrowRight"].indexOf(event.target.dataset.key) >= 0) {
@@ -448,7 +445,6 @@ window.addEventListener("click", (event) => {
                 const textFirst = textAr.value.slice(0, textPosition);
                 const textLast = textAr.value.substring(textPosition + 1, textAr.value.length)
                 textAr.value = `${textFirst}${textLast}`
-                // textPosition = 1;
                 textAr.selectionStart = textPosition;
                 textAr.selectionEnd = textPosition;
             }
@@ -466,8 +462,6 @@ window.addEventListener("click", (event) => {
             if (langShift[0] == 'eu' && langShift[3] == 'Shift') langShiftKey = euLangShift[arrayKeyClick.indexOf(event.target.dataset.key)];
 
             textAr.value = `${textFirst}${langShiftKey}${textLast}`
-
-            // textAr.value = `${textFirst}${event.target.innerText}${textLast}`
 
             textAr.selectionStart = textPosition + 1;
             textAr.selectionEnd = textPosition + 1;
