@@ -135,7 +135,7 @@ textH1.createTextH();
 textArea.createDivBoard();
 keyBoard.createDivBoard();
 textP.createTextP();
-textA.createTextA();
+// textA.createTextA();
 
 arrayKey.forEach(element => {
     // 1 
