@@ -27,6 +27,15 @@ class NewDiv {
         bodyContainer.appendChild(newEl);
     }
 
+    createTextA() {
+        const bodyContainer = document.getElementsByTagName('body')[0]
+        const newEl = document.createElement(`${this.container}`)
+        newEl.classList = `${this.class}`;
+        newEl.href = `https://hospelthiv.github.io/Virtual_Keyboard/`;
+        newEl.innerText = `Cсылка на личный репозиторий`;
+        bodyContainer.appendChild(newEl);
+    }
+
     createDivBoard() {
         const bodyContainer = document.getElementsByTagName('body')[0]
         const newEl = document.createElement(`${this.container}`)
@@ -110,6 +119,11 @@ const textP = new NewDiv({
     class: "container_textP",
     container: "p",
 })
+const textA = new NewDiv({
+    perentContainer: "body",
+    class: "container_textA",
+    container: "a",
+})
 
 const buttonKeys = new NewDiv({
     perentContainer: "container_board",
@@ -121,6 +135,7 @@ textH1.createTextH();
 textArea.createDivBoard();
 keyBoard.createDivBoard();
 textP.createTextP();
+// textA.createTextA();
 
 arrayKey.forEach(element => {
     // 1 
@@ -251,6 +266,18 @@ window.addEventListener("keydown", (event) => {
         });
     }
 
+    if (["ArrowUp", "ArrowLeft", "ArrowDown", "ArrowRight"].indexOf(event.code) >= 0) {
+        let arrow = ['↑', '←', '↓', '→'][["ArrowUp", "ArrowLeft", "ArrowDown", "ArrowRight"].indexOf(event.code)]
+        const textAr = document.getElementsByClassName(`input_text`)[0];
+        const textFirst = textAr.value.slice(0, textPosition);
+        const textLast = textAr.value.substring(textPosition, textAr.value.length)
+
+        textAr.value = `${textFirst}${arrow}${textLast}`
+        textPosition += 1;
+        textAr.selectionStart = textPosition;
+        textAr.selectionEnd = textPosition;
+    }
+
     if (event.code == "Space") {
         const textAr = document.getElementsByClassName(`input_text`)[0];
         const textFirst = textAr.value.slice(0, textPosition);
@@ -288,8 +315,8 @@ window.addEventListener("keydown", (event) => {
         const textAr = document.getElementsByClassName(`input_text`)[0];
         if (textPosition != textAr.value.length) {
             const textFirst = textAr.value.slice(0, textPosition);
-            const textLast = textAr.value.substring(textPosition + 1, textAr.value.length)
-            textAr.value = `${textFirst}${textLast}`
+            const textLast = textAr.value.substring(textPosition + 1, textAr.value.length);
+            textAr.value = `${textFirst}${textLast}`;
             textAr.selectionStart = textPosition;
             textAr.selectionEnd = textPosition;
         }
@@ -352,7 +379,20 @@ window.addEventListener("keydown", (event) => {
 })
 
 window.addEventListener("click", (event) => {
+
     if (event.target.classList[0] == "button_key") {
+
+        if (["ArrowUp", "ArrowLeft", "ArrowDown", "ArrowRight"].indexOf(event.target.dataset.key) >= 0) {
+            let arrow = ['↑', '←', '↓', '→'][["ArrowUp", "ArrowLeft", "ArrowDown", "ArrowRight"].indexOf(event.target.dataset.key)]
+            const textAr = document.getElementsByClassName(`input_text`)[0];
+            const textFirst = textAr.value.slice(0, textPosition);
+            const textLast = textAr.value.substring(textPosition, textAr.value.length)
+
+            textAr.value = `${textFirst}${arrow}${textLast}`
+            textPosition += 1;
+            textAr.selectionStart = textPosition;
+            textAr.selectionEnd = textPosition;
+        }
 
         if (event.target.dataset.key == "Space") {
             const textAr = document.getElementsByClassName(`input_text`)[0];
@@ -469,6 +509,13 @@ window.addEventListener("keyup", (event) => {
 })
 
 window.addEventListener("mousedown", (event) => {
+
+    if (event.target.classList[0] == "button_key") {
+        if (event.target.dataset.key == "ShiftRight" || event.target.dataset.key == "ShiftLeft" && langShift[3] == '') {
+            langShift[3] = 'Shift'
+        }
+    }
+
     if (event.target.classList[0] == "input_text") {
         const textAr = document.getElementsByClassName(`input_text`)[0];
         textPosition = textAr.selectionStart
@@ -476,6 +523,12 @@ window.addEventListener("mousedown", (event) => {
 })
 
 window.addEventListener("mouseup", (event) => {
+
+    if (event.target.classList[0] == "button_key") {
+        if (event.target.dataset.key == "ShiftRight" || event.target.dataset.key == "ShiftLeft") {
+            langShift[3] = ''
+        }
+    }
 
     if (event.target.classList[0] == "input_text") {
         const textAr = document.getElementsByClassName(`input_text`)[0];
